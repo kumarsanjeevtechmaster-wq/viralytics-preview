@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRENDOOM — LIVE Hub (multi-platform) demo</title>
+<style>
+  :root{--bg:#080b18;--card:#111726;--card2:#161d31;--line:#232b45;--tx:#e9edf6;--mut:#8b96ad;--cy:#00e5ff;--pk:#ff2d78;--gn:#22e08b;--am:#ffb020;--vi:#a855f7}
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(900px 420px at 20% -6%,rgba(255,45,120,.14),transparent 60%),radial-gradient(800px 400px at 100% 0%,rgba(0,229,255,.10),transparent 55%),var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.6;font-size:14px}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 16px 70px}
+  .demo-note{background:rgba(0,229,255,.08);border:1px dashed rgba(0,229,255,.4);border-radius:12px;padding:10px 14px;font-size:12.5px;color:#a9d8e6;margin-bottom:18px}
+  .livehead{background:linear-gradient(90deg,rgba(255,45,120,.12),rgba(255,45,120,.02));border:1px solid rgba(255,45,120,.4);border-radius:16px;padding:16px 18px;margin-bottom:14px}
+  .livehead .kick{font-size:11px;letter-spacing:2px;color:#ff5e7a;font-weight:800;margin:0 0 7px}
+  .livehead .body{font-size:13px;line-height:1.75}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .chip{background:var(--card);border:1px solid var(--line);color:var(--tx);border-radius:999px;padding:7px 14px;font-size:12.5px;cursor:pointer;font-weight:600;transition:.15s}
+  .chip:hover{border-color:#3b4a72}
+  .chip.on{background:linear-gradient(135deg,rgba(0,229,255,.2),rgba(168,85,247,.2));border-color:rgba(0,229,255,.55);color:#fff}
+  .chip .n{opacity:.6;font-weight:400}
+  .note{background:rgba(255,176,32,.08);border:1px solid rgba(255,176,32,.42);border-radius:14px;padding:13px 16px;margin-bottom:16px;font-size:12.8px}
+  .note b{color:var(--am)}
+  .note .t{color:var(--mut);margin-top:6px;line-height:1.65}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:13px}
+  .vd{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:.18s}
+  .vd:hover{transform:translateY(-2px);border-color:#3a4569}
+  .thumb{position:relative;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:40px}
+  .thumb.yt{background:linear-gradient(135deg,#3a0f14,#7a1220)}
+  .thumb.fb{background:linear-gradient(135deg,#0e2350,#1b4ea8)}
+  .thumb.ig{background:linear-gradient(135deg,#4a1042,#8a2b6b 55%,#c1691f)}
+  .bdg{position:absolute;top:8px;left:8px;background:rgba(8,11,24,.85);border:1px solid var(--line);border-radius:8px;padding:3px 9px;font-size:10.5px;font-weight:800;letter-spacing:.3px}
+  .bdg.lv{background:rgba(255,45,120,.92);border-color:transparent;color:#fff}
+  .vw{position:absolute;bottom:8px;right:8px;background:rgba(8,11,24,.8);border-radius:7px;padding:2px 8px;font-size:10.5px;color:#dce6f7}
+  .vbody{padding:11px 13px 13px}
+  .vbody h4{margin:0 0 5px;font-size:13.4px;line-height:1.42;font-weight:700}
+  .vbody p{margin:0;font-size:11.5px;color:var(--mut)}
+  .empty{background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:32px 20px;text-align:center;color:var(--mut);font-size:13px}
+  .empty .why{font-size:12px;margin-top:10px;color:#7a869a;line-height:1.65;max-width:640px;margin-left:auto;margin-right:auto}
+  .h2{display:flex;align-items:center;gap:8px;font-size:14.5px;font-weight:800;margin:20px 0 10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  .h2 .c{font-size:11px;color:var(--mut);font-weight:400}
+  .legend{font-size:11px;color:var(--mut);margin-top:12px}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:12.6px}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--mut)}
+  code{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:11.8px;color:#cfe9ff}
+  .foot{margin-top:34px;padding-top:14px;border-top:1px solid var(--line);color:var(--mut);font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="demo-note">🧪 <b>Demo page</b> — ye TRENDOOM ka naya LIVE hub UI hai, mock data ke saath. Asli data merge ke baad <code>viralytics.co.in/trendoom/</code> par aayega. Chips dabao, filter chalega.</div>
+
+  <div class="livehead">
+    <p class="kick">🔴 LIVE — SPORTS · NEWS · EVENTS · SAB EK JAGAH</p>
+    <div class="body">
+      <b>Platform-wise LIVE:</b> ▶️ YouTube (public search, 14 categories) · 📘 Facebook + 📸 Instagram (sirf connected accounts) · 🧵 Threads (Meta API me live endpoint hi nahi)<br>
+      <span style="font-size:11px;color:var(--mut)">🟢 live · 🟡 purana sync · ⚪ abhi kuch nahi · ⛔ API nahi hai</span>
+    </div>
+  </div>
+
+  <div class="chips" id="chips">
+    <button class="chip on" data-p="all">🌐 Sab platforms</button>
+    <button class="chip" data-p="youtube">▶️ YouTube <span class="n">3</span> 🟢</button>
+    <button class="chip" data-p="facebook">📘 Facebook <span class="n">2</span> 🟢</button>
+    <button class="chip" data-p="instagram">📸 Instagram <span class="n">1</span> 🟢</button>
+    <button class="chip" data-p="threads">🧵 Threads ⛔</button>
+  </div>
+
+  <div id="noteBox"></div>
+  <div id="content"></div>
+
+  <div class="legend">Stream cards par platform badge — <code>📘 Facebook LIVE</code>, <code>📸 Instagram LIVE</code>, <code>🔴 YouTube LIVE</code>. Ye badge <code>trendoom_videos.platform</code> column se aata hai.</div>
+
+  <div class="h2">🔍 API sach — kis platform par kya possible hai <span class="c">(Meta docs, Nov 2026)</span></div>
+  <table>
+    <tr><th>Platform</th><th>Live API</th><th>Public discovery</th><th>TRENDOOM me</th></tr>
+    <tr><td>▶️ YouTube</td><td>✅ <code>search?eventType=live</code></td><td>✅ haan</td><td>🟢 14 categories sync</td></tr>
+    <tr><td>📘 Facebook</td><td>✅ <code>/{page}/live_videos</code></td><td>❌ Live Map 2018 me band</td><td>🟢 connected pages ka live</td></tr>
+    <tr><td>📸 Instagram</td><td>⚠️ <code>/{ig-user}/live_media</code></td><td>❌ hashtag/live listing hataya</td><td>🟢 linked business account ka live</td></tr>
+    <tr><td>🧵 Threads</td><td>❌ koi endpoint nahi</td><td>❌</td><td>⛔ honest status dikhta hai</td></tr>
+  </table>
+
+  <div class="foot">TRENDOOM LIVE matrix demo · branch <code>feat/trendoom-live-multiplatform</code> · PR <a href="https://github.com/kumarsanjeevtechmaster-wq/viralytics/pull/6" style="color:#00e5ff">#6</a></div>
+</div>
+
+<script>
+const DATA = {
+  youtube: [
+    {t:'India vs Australia — 3rd ODI LIVE', c:'Star Sports', v:184320, e:'🏏', k:'yt'},
+    {t:'Budget 2026 — LIVE coverage', c:'DD News', v:96410, e:'📺', k:'yt'},
+    {t:'BGMI Night Finals — Grand Finale', c:'GodLike Esports', v:42870, e:'🎮', k:'yt'}
+  ],
+  facebook: [
+    {t:'Budget 2026 LIVE — live analysis', c:'Viralytics Page', v:4821, e:'📘', k:'fb'},
+    {t:'Cricket streaming — fan watch party', c:'TRENDOOM Community', v:1900, e:'🏟️', k:'fb'}
+  ],
+  instagram: [
+    {t:'Live Q&A — creator growth', c:'@viralytics', v:0, e:'📸', k:'ig'}
+  ],
+  threads: []
+};
+const NOTE = {
+  threads: { icon:'🧵', label:'Threads', status:'unsupported', note:"Threads API me live/streaming endpoint hi nahi hai (Meta: 'not yet available') — Threads par live video feature bhi nahi hai. Ye platform sirf connected video imports ke liye hai." }
+};
+const BADGE = { youtube:'🔴 YouTube LIVE', facebook:'📘 Facebook LIVE', instagram:'📸 Instagram LIVE' };
+const NAME  = { youtube:'YouTube', facebook:'Facebook', instagram:'Instagram', threads:'Threads' };
+const ICON  = { youtube:'▶️', facebook:'📘', instagram:'📸', threads:'🧵' };
+function fmt(n){ return n>=1e6?(n/1e6).toFixed(1)+'M':n>=1000?(n/1000).toFixed(1)+'K':String(n) }
+function card(x, p){
+  return `<div class="vd"><div class="thumb ${x.k}">${x.e}
+    <span class="bdg lv">${BADGE[p]}</span>
+    ${x.v?`<span class="vw">👥 ${fmt(x.v)} dekh rahe</span>`:''}</div>
+    <div class="vbody"><h4>${x.t}</h4><p>${x.c} · abhi</p></div></div>`;
+}
+function render(p){
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on', c.dataset.p===p));
+  const note = document.getElementById('noteBox');
+  note.innerHTML = (p==='threads') ? `<div class="note"><b>🧵 Threads — status: unsupported</b><div class="t">${NOTE.threads.note}</div></div>` : '';
+  const el = document.getElementById('content');
+  let html = '';
+  if(p==='all'){
+    html = `<div class="h2">📘 Facebook — LIVE <span class="c">(2)</span></div><div class="grid">${DATA.facebook.map(x=>card(x,'facebook')).join('')}</div>`
+         + `<div class="h2">📸 Instagram — LIVE <span class="c">(1)</span></div><div class="grid">${DATA.instagram.map(x=>card(x,'instagram')).join('')}</div>`
+         + `<div class="h2">🏏 Cricket — LIVE <span class="c">(2)</span></div><div class="grid">${DATA.youtube.slice(0,2).map(x=>card(x,'youtube')).join('')}</div>`
+         + `<div class="h2">🎮 Gaming — LIVE <span class="c">(1)</span></div><div class="grid">${card(DATA.youtube[2],'youtube')}</div>`;
+  } else if(p==='threads'){
+    html = `<div class="empty">⛔ Threads: yahan kuch nahi aayega<br><div class="why">Ye "sync nahi hua" wali khaali list nahi hai — Meta ke paas Threads live ka API hi nahi hai. Isliye UI aapko asli wajah dikhata hai, khaali screen nahi.</div></div>`;
+  } else {
+    html = `<div class="h2">${ICON[p]} ${NAME[p]} — LIVE <span class="c">(${DATA[p].length})</span></div><div class="grid">${DATA[p].map(x=>card(x,p)).join('')}</div>`;
+  }
+  el.innerHTML = html;
+}
+document.getElementById('chips').addEventListener('click', e=>{
+  const b = e.target.closest('.chip'); if(!b) return; render(b.dataset.p);
+});
+render('all');
+</script>
+</body>
+</html>
